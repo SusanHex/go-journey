@@ -17,7 +17,7 @@ func main() {
 	case "1":
 		fmt.Println("One!!!!!!!")
 	case "2", "3", "4":
-		fmt.Println("You entered 3, 4 or 5")
+		fmt.Println("You entered 2, 3 or 4")
 	default:
 		fmt.Println("Value: ", argument)
 	}
