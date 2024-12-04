@@ -1,6 +1,6 @@
 package main
 
 func main() {
-	Debug := false
-	LogLevel := "info"
+	// Debug := false
+	// LogLevel := "info"
 }
