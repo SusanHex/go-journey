@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 func check(a, b int) error {
@@ -25,6 +26,22 @@ func main() {
 	if err == nil {
 		fmt.Println("check() executed normally!")
 	} else {
+		fmt.Println(err)
+	}
+	err = check(0, 0)
+	if err.Error() == "This is a custom Error message" {
+		fmt.Println("Custom error message detected")
+	}
+	err = formattedError(0, 0)
+	if err != nil {
+		fmt.Println(err)
+	}
+	i, err := strconv.Atoi("-456")
+	if err == nil {
+		fmt.Println("Int value is: ", i)
+	}
+	i, err = strconv.Atoi("Z456")
+	if err != nil {
 		fmt.Println(err)
 	}
 }
