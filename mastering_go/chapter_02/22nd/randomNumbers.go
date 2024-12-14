@@ -28,7 +28,7 @@ func main() {
 		} else if len(os.Args) == 5 {
 			temp_seed, error := strconv.Atoi(os.Args[4])
 			if error != nil {
-				fmt.Println(error)
+				fmt.Println("Error parsing as seed an integer")
 				os.Exit(5)
 			}
 			seed = temp_seed
@@ -36,17 +36,17 @@ func main() {
 		}
 		temp_min, error := strconv.Atoi(os.Args[1])
 		if error != nil {
-			fmt.Println(error)
+			fmt.Println("Error parsing min as an integer")
 			os.Exit(3)
 		}
 		temp_max, error := strconv.Atoi(os.Args[2])
 		if error != nil {
-			fmt.Println(error)
+			fmt.Println("Error parsing max as an integer")
 			os.Exit(4)
 		}
 		temp_count, error := strconv.Atoi(os.Args[3])
 		if error != nil {
-			fmt.Println(error)
+			fmt.Println("Error parsing count as an integer")
 			os.Exit(5)
 		}
 
