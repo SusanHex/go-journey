@@ -10,5 +10,5 @@ const (
 func main() {
 	i := int(1)
 	fmt.Println("unTyped:", i*untypedConstant)
-	fmt.Println("Typed:", i*typedConstant)
+	fmt.Println("Typed:", i*int(typedConstant))
 }
