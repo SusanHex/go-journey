@@ -7,6 +7,17 @@ import (
 	"strconv"
 )
 
+func normalize(data []float64, mean float64, stdDev float64) []float64 {
+	if stdDev == 0 {
+		return data
+	}
+	normalized := make([]float64, len(data))
+	for i, val := range data {
+		normalized[i] = math.Floor((val-mean)/stdDev*10000) / 10000
+	}
+	return normalized
+}
+
 func main() {
 	arguments := os.Args
 	if len(arguments) == 1 {
