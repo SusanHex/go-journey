@@ -7,9 +7,11 @@ import (
 	"strconv"
 )
 
+var CustomError = fmt.Errorf("This is a custom Error message")
+
 func check(a, b int) error {
 	if a == 0 && b == 0 {
-		return errors.New("This is a custom Error message")
+		return CustomError
 	}
 	return nil
 }
@@ -29,7 +31,7 @@ func main() {
 		fmt.Println(err)
 	}
 	err = check(0, 0)
-	if err.Error() == "This is a custom Error message" {
+	if errors.Is(err, CustomError) {
 		fmt.Println("Custom error message detected")
 	}
 	err = formattedError(0, 0)
