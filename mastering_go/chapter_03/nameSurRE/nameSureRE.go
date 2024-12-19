@@ -13,11 +13,20 @@ func matchNameSur(s string) bool {
 }
 
 func main() {
-	arguments := os.Args
+	arguments := os.Args[1:]
 	if len(arguments) < 2 {
 		fmt.Println("Please provide a string to test against.")
 		os.Exit(1)
 	}
-	potentialSurname := arguments[1]
-	fmt.Println(matchNameSur(potentialSurname))
+	var falseSurname, trueSurname uint
+	for _, potentialSurname := range arguments {
+		isSurname := matchNameSur(potentialSurname)
+		fmt.Println(isSurname)
+		if isSurname {
+			trueSurname += 1
+		} else {
+			falseSurname += 1
+		}
+	}
+	fmt.Println("True:", trueSurname, "False:", falseSurname)
 }
