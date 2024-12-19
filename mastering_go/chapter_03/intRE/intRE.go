@@ -13,11 +13,20 @@ func matchInt(s string) bool {
 }
 
 func main() {
-	arguments := os.Args
+	arguments := os.Args[1:]
 	if len(arguments) < 2 {
 		fmt.Println("Please provide a string to test against.")
 		os.Exit(1)
 	}
-	input := arguments[1]
-	fmt.Println(matchInt(input))
+	var trueMatch, nonMatch uint
+	for _, input := range arguments {
+		isMatch := matchInt(input)
+		if isMatch {
+			trueMatch += 1
+		} else {
+			nonMatch += 1
+		}
+		fmt.Print(isMatch, " ")
+	}
+	fmt.Println("\nIs int:", trueMatch, "Is not:", nonMatch)
 }
