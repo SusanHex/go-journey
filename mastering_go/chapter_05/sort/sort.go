@@ -25,7 +25,7 @@ func (a Personslice) Len() int {
 	return len(a)
 }
 func (a Personslice) Less(i, j int) bool {
-	return a[i].F3.F1 < a[j].F3.F1
+	return a[i].F3.F3 < a[j].F3.F3
 }
 func (a Personslice) Swap(i, j int) {
 	a[i], a[j] = a[j], a[i]
