@@ -27,7 +27,7 @@ type c struct {
 }
 
 func processA(s intA) {
-	fmt.Printf("%t\n", s)
+	fmt.Printf("%T\n", s)
 }
 
 // Satisfying intA
