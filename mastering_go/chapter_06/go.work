@@ -1,0 +1,8 @@
+go 1.23.4
+
+use (
+	./sqlite06
+	./sqliteGo
+)
+
+replace github.com/SusanHex/sqlite06@latest => ./sqlite06
