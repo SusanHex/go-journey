@@ -1,3 +1,22 @@
+/*
+The package works on 2 tables of a SQLite DB.
+The names of the tables are:
+  - Users
+  - Userdata
+
+the definitions of the tables are:
+
+	CREATE TABLE Users (
+		ID INTEGER PRIMARY KEY,
+		Username Text
+	);
+	CREATE TABLE Userdata (
+		UserID INTEGER NOT NULL,
+		Name TEXT,
+		Surname TEXT,
+		Description TEXT
+	)
+*/
 package sqlite06
 
 import (
@@ -9,10 +28,19 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+/*
+This global variable holds the filepath to the SQLite3 DB.
+
+	Filename: Is the filepath to the database file.
+*/
 var (
 	Filename = ""
 )
 
+/*
+The userdata structure is for holding full user data
+from the Userdata table and usernames from the Users table
+*/
 type Userdata struct {
 	ID          int
 	Username    string
@@ -21,7 +49,9 @@ type Userdata struct {
 	Description string
 }
 
-func OpenConnection() (*sql.DB, error) {
+// openConnection() is for opening the SQLite3 connection
+// in order to be used by the other functions of the package
+func openConnection() (*sql.DB, error) {
 	db, err := sql.Open("sqlite3", Filename)
 	if err != nil {
 		return nil, err
@@ -33,7 +63,7 @@ func OpenConnection() (*sql.DB, error) {
 // -1 if the user does not exists
 func exists(username string) int {
 	username = strings.ToLower(username)
-	db, err := OpenConnection()
+	db, err := openConnection()
 	if err != nil {
 		fmt.Println(err)
 		return -1
@@ -64,7 +94,7 @@ func exists(username string) int {
 // -1 if there was an error
 func AddUser(d Userdata) int {
 	d.Username = strings.ToLower(d.Username)
-	db, err := OpenConnection()
+	db, err := openConnection()
 	if err != nil {
 		fmt.Println(err)
 		return -1
@@ -94,8 +124,13 @@ func AddUser(d Userdata) int {
 	return userID
 }
 
+/*
+DeleteUser() deletes a user if the user exists.
+It requires the User ID of the user the be deleted.
+Returnes an error in case something goes wrong.
+*/
 func DeleteUser(id int) error {
-	db, err := OpenConnection()
+	db, err := openConnection()
 	if err != nil {
 		return err
 	}
@@ -128,9 +163,12 @@ func DeleteUser(id int) error {
 	return nil
 }
 
+// ListUsers() Lists all users in the database.
+//
+// Returns a slice of Userdata to the calling function
 func ListUsers() ([]Userdata, error) {
 	data := []Userdata{}
-	db, err := OpenConnection()
+	db, err := openConnection()
 	if err != nil {
 		return nil, err
 	}
@@ -155,8 +193,14 @@ func ListUsers() ([]Userdata, error) {
 	return data, nil
 }
 
+/*
+UpdateUser() is for updating an existing user
+given a Userdata structure.
+The user ID of the user to be updated is found inside the function
+via corelating the Username to the User ID.
+*/
 func UpdateUser(d Userdata) error {
-	db, err := OpenConnection()
+	db, err := openConnection()
 	if err != nil {
 		return err
 	}
