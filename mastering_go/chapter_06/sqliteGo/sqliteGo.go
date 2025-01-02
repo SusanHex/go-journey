@@ -56,6 +56,16 @@ func main() {
 	if id == -1 {
 		fmt.Println("There was an error adding user", t.Username)
 	}
+	fmt.Println("Searching for username:", random_username)
+	temp_data, err := sqlite06.SearchUser(random_username)
+	if err != nil {
+		fmt.Println(err)
+	} else if temp_data.ID == -1 {
+		fmt.Println("Could not find username:", random_username)
+	} else {
+		fmt.Println(temp_data)
+	}
+
 	err = sqlite06.DeleteUser(id)
 	if err != nil {
 		fmt.Println(err)

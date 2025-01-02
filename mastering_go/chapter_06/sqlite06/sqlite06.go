@@ -217,3 +217,39 @@ func UpdateUser(d Userdata) error {
 	}
 	return nil
 }
+
+func SearchUser(username string) (Userdata, error) {
+	db, err := openConnection()
+	temp := Userdata{}
+	temp.ID = -1
+	if err != nil {
+		return Userdata{}, err
+	}
+	defer db.Close()
+	findStatement := `SELECT * FROM Users WHERE Username = ?`
+
+	row, err := db.Query(findStatement, username)
+	if err != nil {
+		return Userdata{}, err
+	}
+	row.Next()
+	err = row.Scan(&temp.ID, &temp.Username)
+	row.Close()
+	if err != nil {
+		temp.ID = -1
+		return temp, err
+	}
+	userDataStatement := `SELECT * FROM Userdata WHERE UserID = ?`
+	row, err = db.Query(userDataStatement, temp.ID)
+	if err != nil {
+		temp.ID = -1
+		return temp, err
+	}
+	row.Next()
+	err = row.Scan(&temp.ID, &temp.Name, &temp.Surname, &temp.Description)
+	row.Close()
+	if err != nil {
+		return Userdata{ID: -1, Username: "", Name: "", Surname: "", Description: ""}, err
+	}
+	return temp, nil
+}
