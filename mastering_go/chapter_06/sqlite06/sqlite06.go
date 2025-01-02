@@ -85,7 +85,7 @@ func AddUser(d Userdata) int {
 	if userID == -1 {
 		return userID
 	}
-	insertStatement = `INSERT INTO Userdata values (?, ?, ?, ?, ?)`
+	insertStatement = `INSERT INTO Userdata values (?, ?, ?, ?)`
 	_, err = db.Exec(insertStatement, userID, d.Name, d.Surname, d.Description)
 	if err != nil {
 		fmt.Println("db.Exec()", err)
@@ -121,7 +121,7 @@ func DeleteUser(id int) error {
 	}
 	// Delete from Users
 	deleteStatement = `DELETE from Users WHERE ID = ?`
-	_, err = db.Exec(deleteStatement)
+	_, err = db.Exec(deleteStatement, id)
 	if err != nil {
 		return err
 	}
