@@ -25,7 +25,7 @@ import (
 	"fmt"
 	"strings"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 /*
@@ -52,7 +52,7 @@ type Userdata struct {
 // openConnection() is for opening the SQLite3 connection
 // in order to be used by the other functions of the package
 func openConnection() (*sql.DB, error) {
-	db, err := sql.Open("sqlite3", Filename)
+	db, err := sql.Open("mysql", "username:password@tcp(127.0.0.1:3306)/test")
 	if err != nil {
 		return nil, err
 	}
