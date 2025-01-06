@@ -25,4 +25,8 @@ func main() {
 	log.Println(string(temp))
 	temp, _ = json.Marshal(notEmpty)
 	log.Println(string(temp))
+	pass.Surname = ""
+	pass.Year = 0
+	temp, _ = json.Marshal(pass)
+	log.Println(string(temp))
 }
