@@ -25,16 +25,24 @@ func wordByWord(input io.Reader) error {
 		line, err := r.ReadString('\n')
 		if errors.Is(err, io.EOF) {
 			printWords(line)
+			charByChar(line)
 			break
 		} else if err != nil {
 			fmt.Println(err)
 			return err
 		}
 		printWords(line)
+		charByChar(line)
 	}
 	return nil
 }
 
+func charByChar(input string) error {
+	for _, x := range input {
+		fmt.Println(string(x))
+	}
+	return nil
+}
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Println("Please provide a file as input")
