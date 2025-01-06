@@ -36,5 +36,6 @@ func main() {
 		fmt.Println(err)
 		os.Exit(2)
 	}
+	defer file.Close()
 	lineByLine(file)
 }
