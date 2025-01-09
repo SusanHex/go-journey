@@ -1,0 +1,9 @@
+{
+"macos": "null",
+"linux": "true",
+"windows": "pass",
+"postgres": "PassPost",
+"mysql": "hello",
+"mongodb": "Hi", 
+"active": true
+}
