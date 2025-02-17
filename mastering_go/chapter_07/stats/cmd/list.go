@@ -1,12 +1,18 @@
 /*
 Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
+	"log"
+	"log/slog"
+	"os"
+	"sort"
 
+	"github.com/docker/docker/daemon/logger"
 	"github.com/spf13/cobra"
 )
 
@@ -23,6 +29,34 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("list called")
 	},
+}
+
+func list() {
+	sort.Sort(DFslice(data))
+	text, err := PrettyPrintJSONstream(data)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(text)
+
+	logger = slog.New(slog.NewJSONHandler(os.Stderr, nil))
+	// Work with logger
+	if disableLogging == false {
+		logger = slog.New(slog.NewJSONHandler(io.Discard, nil))
+	}
+
+	slog.SetDefault(logger)
+	s := fmt.Sprintf("%d records in total.", len(data))
+	logger.Info(s)
+}
+
+func PrettyPrint(v interface{}) (err error) {
+	b, err := json.MarshalIndent(v, "", "\t")
+	if err == nil {
+		log.Println(string(b))
+	}
+	return err
 }
 
 func init() {
